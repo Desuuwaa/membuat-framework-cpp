@@ -1,0 +1,3 @@
+build/*.a
+build/*.o
+build/program
