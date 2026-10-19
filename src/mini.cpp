@@ -2,21 +2,38 @@
 #include <string>
 #include "mini.h"
 
-void Run(void (*mulai)(), void (*selesai)(const std::string&)) {
-    std::string inputPengguna;
-    
-    std::cout << "[Memulai Framework]" << std::endl;
 
-    mulai();
+MiniApp::MiniApp(const std::string& judul) {
+    this->judul = judul;
+}
 
-    while (true) {
-        std::cin >> inputPengguna;
-        if (inputPengguna == "keluar") {
+void MiniApp::Start(void (*aksi)()) {
+    saatMulai = aksi;
+}
+
+void MiniApp::Update(void (*aksi)(const std::string&)) {
+    saatInput = aksi;
+}
+
+void MiniApp::Run() {
+    std::cout << "[" << judul << " dimulai]" << std::endl;
+
+    if (saatMulai != nullptr) {
+        saatMulai();
+    }
+
+    std::string masukkan;
+    while (std::cin >> masukkan) {
+        if (masukkan == "keluar") {
             break;
         }
 
-        selesai(inputPengguna);
+        jumlahInput++;
+
+        if (saatInput != nullptr) {
+            saatInput(masukkan);
+        }
     }
 
-    std::cout << "[Mengakhiri Framework]" << std::endl;
-};
+    std::cout << "[Selesai, total input: " << jumlahInput << "]" << std::endl;
+}
