@@ -35,7 +35,7 @@ void kedua(const std::string& dataMasuk) {
 
     std::cout << std::endl;
 
-    BubbleSort(angka);
+    SelectionSort(angka);
 
     std::cout << "Data setelah diurut: " << std::endl;
 
